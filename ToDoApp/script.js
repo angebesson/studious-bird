@@ -10,22 +10,34 @@ const titleInput = document.getElementById("title-input");
 const dateInput = document.getElementById("date-input");
 const descriptionInput = document.getElementById("description-input");
 
-const taskData = [];
+const taskData = JSON.parse(localStorage.getItem("data"))||[];
 let currentTask = {};
+
+const removeSpecialChars = (str)=>{
+  return str.replace(/[^a-zA-Z0-9 ]/g, '')
+}
+console.log(removeSpecialChars());
 const addOrUpdateTask = () => {
+  if(!titleInput.value.trim()){
+    alert("Please provide a title");
+    return
+  }
   const dataArrIndex = taskData.findIndex((item) => item.id === currentTask.id);
   const taskObj = {
-    id: `${titleInput.value.toLowerCase().split(" ").join("-")}-${Date.now()}`,
-    title: titleInput.value,
+    id: `${removeSpecialChars(titleInput.value).toLowerCase().split(" ").join("-")}-${Date.now()}`,
+    title: removeSpecialChars(titleInput.value),
     date: dateInput.value,
-    description: descriptionInput.value,
+    description: removeSpecialChars(descriptionInput.value),
   };
 
   if (dataArrIndex === -1) {
     taskData.unshift(taskObj);
-    updateTaskContainer();
-  reset();
+  } else {
+    taskData[dataArrIndex] = taskObj;
   }
+  localStorage.setItem("data",JSON.stringify(taskData))
+  updateTaskContainer()
+  reset()
 };
 const updateTaskContainer = () => {
   tasksContainer.innerHTML = "";
@@ -52,6 +64,7 @@ const deleteTask = (buttonEl) => {
 
   buttonEl.parentElement.remove();
   taskData.splice(dataArrIndex, 1);
+  localStorage.setItem("data", JSON.stringify(taskData));
 }
 const editTask = (buttonEl) => {
   const dataArrIndex = taskData.findIndex(
@@ -69,6 +82,7 @@ addOrUpdateTaskBtn.innerText = "Update Task";
 taskForm.classList.toggle("hidden");  
 }
 const reset = () => {
+  addOrUpdateTaskBtn.innerText = "Add Task";
   titleInput.value = "";
   dateInput.value = "";
   descriptionInput.value = "";
@@ -76,14 +90,21 @@ const reset = () => {
   currentTask = {};
 }
 
+if (taskData.length) {
+  updateTaskContainer();
+}
 openTaskFormBtn.addEventListener("click", () =>
     taskForm.classList.toggle("hidden")
   );
   closeTaskFormBtn.addEventListener("click", () => {
     const formInputsContainValues = titleInput.value || dateInput.value || descriptionInput.value;
-
-    if(formInputsContainValues){confirmCloseDialog.showModal()
-  }else{reset()};
+    const formInputValuesUpdated = titleInput.value !== currentTask.title || dateInput.value !== currentTask.date || descriptionInput.value !== currentTask.description;
+  
+    if (formInputsContainValues && formInputValuesUpdated) {
+      confirmCloseDialog.showModal();
+    } else {
+      reset();
+    }
   });
   
   cancelBtn.addEventListener("click", () => confirmCloseDialog.close());
@@ -98,5 +119,4 @@ taskForm.addEventListener("submit", (e) => {
 
   addOrUpdateTask();
 });
-  
   
