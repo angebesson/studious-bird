@@ -51,6 +51,20 @@ const result = document.getElementById("result");
 
 //   result.innerText = binary;
 // };
+const animationData = [
+  {
+    inputVal: 5,
+    addElDelay: 1000
+  },
+  {
+    inputVal: 2,
+    addElDelay: 1500
+  },
+  {
+    inputVal: 1,
+    addElDelay: 2000
+  },
+];
 const decimalToBinary = (input) => {
   if (input === 0 || input === 1) {
     return String(input);
