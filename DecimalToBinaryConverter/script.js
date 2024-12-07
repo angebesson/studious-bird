@@ -22,22 +22,46 @@ const result = document.getElementById("result");
 
 //   result.innerText = remainders.reverse().join("");
 // };
+//how the call stack and recursion work:
+// const countDownAndUp = (number) => {
+//   console.log(number);
 
+//   if (number === 0) {
+//     console.log("Reached base case");
+//     return;
+//   } else {
+//     countDownAndUp(number - 1);
+//     console.log(number);
+//   }
+// };
+
+// countDownAndUp(3);
+
+// const decimalToBinary = (input) => {
+//   let binary = "";
+
+//   if (input === 0) {
+//     binary = "0";
+//   }
+
+//   while (input > 0) {
+//     binary = (input % 2) + binary;
+//     input = Math.floor(input / 2);
+//   }
+
+//   result.innerText = binary;
+// };
 const decimalToBinary = (input) => {
-  let binary = "";
-
-  if (input === 0) {
-    binary = "0";
+  if (input === 0 || input === 1) {
+    return String(input);
+  } else {
+    return decimalToBinary(Math.floor(input / 2)) + (input % 2);
   }
-
-  while (input > 0) {
-    binary = (input % 2) + binary;
-    input = Math.floor(input / 2);
-  }
-
-  result.innerText = binary;
 };
 
+const showAnimation = () => {
+
+};
 const checkUserInput = () => {
     if (
       !numberInput.value ||
