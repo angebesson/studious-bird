@@ -1,45 +1,64 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
 }
-.logo{
+
+.logo {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    }
-    
-    .logo img{
-       width: 150px;
+}
+
+.logo img {
+    width: 150px;
+}
+
+.interaction {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        padding: 45px;
     }
 
-    .interaction{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        h1{
-            padding: 45px;
-        }
-        label{
-            font-weight: bold;
-            font-size: 22px;
-        }
-        input{
-            height: 25px;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-        button{
-            height: 25px;
-            color: antiquewhite;
-            background-color: black;
-            border-radius: 15px;
-            width: 200px;
-            font-weight: bold;
-        }
+    label {
+        font-weight: bold;
+        font-size: 22px;
     }
 
+    input {
+        height: 25px;
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+    }
+
+    button {
+        height: 25px;
+        color: antiquewhite;
+        background-color: black;
+        border-radius: 15px;
+        width: 200px;
+        font-weight: bold;
+    }
+}
+.number{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.output {
+    border: solid black 2px;
+    border-radius: 15px;
+    height: 50px;
+    width: 200px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
