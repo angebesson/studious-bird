@@ -10,6 +10,31 @@ const getMedian = (array) => {
         return middle;
     }
 };
+//version 1
+// const getMode = (array) => {
+//     const counts = {};
+//     array.forEach(el => {
+//         if(counts[el]) {
+//         counts[el] += 1;
+//       } else {
+//         counts[el] = 1;
+//       }
+//       })
+//       return counts;
+//     };
+//version 2
+// 
+//version 3
+const getMode = (array) => {
+    const counts = {};
+    array.forEach((el) => {
+      counts[el] = (counts[el] || 0) + 1;
+    })
+    if (new Set(Object.values(counts)).size === 1) {
+      return null;
+    }
+    const highest = Object.keys(counts).sort((a,b)=>{return counts[b]-counts[a]})[0];
+  }
 const calculate = () => {
     const value = document.querySelector("#numbers").value;
     const array = value.split(/,\s*/g);
