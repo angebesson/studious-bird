@@ -79,6 +79,11 @@ input{
     border: #5e5959 solid 2px;
     border-radius: 4px;
 }
+
+#results-div{
+    border: #6D2323 solid 2px;
+    margin: 10px;
+}
 .btn{
     display: flex;
     flex-direction: row;
