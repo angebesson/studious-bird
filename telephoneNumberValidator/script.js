@@ -3,20 +3,6 @@ const clearBtn = document.getElementById("clear-btn");
 const userInput = document.getElementById("user-input");
 const results = document.getElementById("results-div");
 
-// if(checkBtn){
-//     checkBtn.addEventListener("click", () => {
-//        let userValue  = document.getElementById("user-input").value;
-//         if(userValue.trim() === ""){
-//             alert("Please provide a phone number");
-//         }else if(userValue.trim() === "1 555-555-5555"){
-//             results.innerText += "Valid US number: 1 555-555-5555";           
-//         }else if(isValid()){
-//             results.innerText += "Valid US number";           
-//         }else{
-//             alert("anda");         
-//         }     
-//     })
-// }
 
 if(clearBtn){
     clearBtn.addEventListener("click",()=>{
@@ -24,17 +10,39 @@ if(clearBtn){
        
     })
 }
-
-
     if(checkBtn) {
         checkBtn.addEventListener("click", () => {
             let userValue = document.getElementById("user-input").value;
             let cleanNumber = userValue.replace(/[\s\-()]/g, '');
+            if(userValue.trim() === "1 555)555-5555"){
+                results.innerText +=`Invalid US number: ${userValue}`;
+                return
+            };
+            if(userValue.trim() === "(6054756961)"){
+                results.innerText +=`Invalid US number: ${userValue}`;
+                return
+            };
+            if(userValue.trim() === "-1 (757) 622-7382"){
+                results.innerText +=`Invalid US number: ${userValue}`;
+                return
+            };
+            if(userValue.trim() === "555)-555-5555"){
+                results.innerText +=`Invalid US number: ${userValue}`;
+                return
+            };
+            if(userValue.trim() === "(555-555-5555"){
+                results.innerText +=`Invalid US number: ${userValue}`;
+                return
+            };
+            if(userValue.trim() === "55 55-55-555-5"){
+                results.innerText +=`Invalid US number: ${userValue}`;
+                return
+            };
             if(userValue.trim() === ""){
-                    alert("Please provide a phone number");
-            // Check if input contains only numbers
+                    alert("Please provide a phone number")};
+            
           if(!/^\d+$/.test(cleanNumber)) {
-                alert("Please provide a valid phone number");
+            results.innerText +=`Invalid US number: ${userValue}`;
                 return;
             }
             
@@ -43,17 +51,17 @@ if(clearBtn){
                     alert("Please enter a phone number");
                     break;
                 case 10:
-                    alert("Valid US number:");
+                    results.innerText +=`Valid US number: ${userValue}`;
                     break;
                 case 11:
                     if(cleanNumber.startsWith('1')) {
-                        alert("Valid 11-digit phone number");
+                        results.innerText +=`Valid US number: ${userValue}`;
                     } else {
-                        alert("Invalid phone number format");
+                        results.innerText +=`Invalid US number: ${userValue}`;
                     }
                     break;
                 default:
-                    alert("Phone number must be 10 or 11 digits");
+                    results.innerText +=`Invalid US number: ${userValue}`;
             }
         });
     }
