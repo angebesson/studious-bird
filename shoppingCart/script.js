@@ -178,3 +178,5 @@ cartBtn.addEventListener('click', () => {
         ? "block"
         : "none";
 })
+
+clearCartBtn.addEventListener("click",cart.clearCart.bind(cart));
