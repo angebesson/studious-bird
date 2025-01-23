@@ -22,6 +22,7 @@ button{
     padding: 10px;
     border-radius: 12px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #061A40;
 }
 
  .div1{
@@ -49,6 +50,7 @@ background-color:#0353A4 ;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #061A40;
 }
 .text-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
