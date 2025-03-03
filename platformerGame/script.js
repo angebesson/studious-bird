@@ -91,56 +91,74 @@ const animate = () => {
     } else {
         player.velocity.x = 0;
     }
-    requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    player.update();
-}
-
-const keys = {
-    rightKey: {
-        pressed: false
-    },
-    leftKey: {
-        pressed: false
-    },
-};
-const movePlayer = (key, xVelocity, isPressed) => {
-    if (!isCheckpointCollisionDetectionActive) {
-        player.velocity.x = 0;
-        player.velocity.y = 0;
-        return;
-    }
-    switch (key) {
-        case "ArrowLeft":
-            keys.leftKey.pressed = isPressed;
-            if (xVelocity === 0) {
-                player.velocity.x = xVelocity;
+    if (keys.rightKey.pressed && isCheckpointCollisionDetectionActive) {
+        platforms.forEach(platform => platform.position.x -= 5);
+    } else if (keys.leftKey.pressed && isCheckpointCollisionDetectionActive) {
+        platforms.forEach((platform) => {
+            platform.position.x += 5;
+        });
+        platforms.forEach((platform) => {
+            const collisionDetectionRules = [player.position.y + player.height <= platform.position.y,
+            player.position.y + player.height + player.velocity.y >= platform.position.y,
+            player.position.x >= platform.position.x - player.width/2,
+            player.position.x <= platform.position.x + platform.width - player.width/3,
+            ];
+            if(collisionDetectionRules.every((rule) => rule)){
+                player.velocity.y = 0;
+                return;
             }
-            player.velocity.x -= xVelocity;
-            break;
-        case "ArrowUp":
-        case " ":
-        case "Spacebar":
-
-            player.velocity.y -= 8;
-            break;
-        case "ArrowRight":
-            keys.rightKey.pressed = isPressed;
-            if (xVelocity === 0) {
-                player.velocity.x = xVelocity;
-            }
-            player.velocity.x += xVelocity;
+        })
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        platforms.forEach((platform) => { platform.draw() })
+        player.update();
     }
-}
-const startGame = () => {
-    canvas.style.display = "block";
-    startScreen.style.display = "none";
-    player.draw();
-}
-startBtn.addEventListener("click", startGame);
-window.addEventListener("keydown", ({ key }) => {
-    movePlayer(key, 8, true)
-});
-window.addEventListener("keyup", ({ key }) => {
-    movePlayer(key, 0, false);
-});
+
+    const keys = {
+        rightKey: {
+            pressed: false
+        },
+        leftKey: {
+            pressed: false
+        },
+    };
+    const movePlayer = (key, xVelocity, isPressed) => {
+        if (!isCheckpointCollisionDetectionActive) {
+            player.velocity.x = 0;
+            player.velocity.y = 0;
+            return;
+        }
+        switch (key) {
+            case "ArrowLeft":
+                keys.leftKey.pressed = isPressed;
+                if (xVelocity === 0) {
+                    player.velocity.x = xVelocity;
+                }
+                player.velocity.x -= xVelocity;
+                break;
+            case "ArrowUp":
+            case " ":
+            case "Spacebar":
+
+                player.velocity.y -= 8;
+                break;
+            case "ArrowRight":
+                keys.rightKey.pressed = isPressed;
+                if (xVelocity === 0) {
+                    player.velocity.x = xVelocity;
+                }
+                player.velocity.x += xVelocity;
+        }
+    }
+    const startGame = () => {
+        canvas.style.display = "block";
+        startScreen.style.display = "none";
+        player.draw();
+    }
+    startBtn.addEventListener("click", startGame);
+    window.addEventListener("keydown", ({ key }) => {
+        movePlayer(key, 8, true)
+    });
+    window.addEventListener("keyup", ({ key }) => {
+        movePlayer(key, 0, false);
+    });
