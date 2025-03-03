@@ -80,6 +80,9 @@ const platformPositions = [
     { x: 4400, y: proportionalSize(200) },
     { x: 4700, y: proportionalSize(150) },
 ];
+const platforms = platformPositions.map(
+    platform => new Platform(platform.x, platform.y)
+);
 const animate = () => {
     if (keys.rightKey.pressed && player.position.x < proportionalSize(400)) {
         player.velocity.x = 5;
