@@ -109,7 +109,10 @@ const checkpointPositions = [
     { x: 1170, y: proportionalSize(80), z: 1},
   {x: 2900, y: proportionalSize(330), z: 2 },
   {x: 4800, y: proportionalSize(80), z: 3 },
-   ]
+   ];
+   const checkpoints = checkpointPositions.map(
+    checkpoint => new CheckPoint(checkpoint.x, checkpoint.y, checkpoint.z)
+  );
 const animate = () => {
     if (keys.rightKey.pressed && player.position.x < proportionalSize(400)) {
         player.velocity.x = 5;
@@ -147,7 +150,8 @@ const animate = () => {
         })
         requestAnimationFrame(animate);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        platforms.forEach((platform) => { platform.draw() })
+        platforms.forEach((platform) => { platform.draw() });
+        checkpoints.forEach((checkpoint)=>{checkpoint.draw()});
         player.update();
     }
 
