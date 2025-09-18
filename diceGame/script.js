@@ -24,6 +24,14 @@ const updateRadioOption = (index, score) => {
   scoreInputs[index].value = score;
   scoreSpans[index].textContent = `, score = ${score}`;
 };
+  const updateScore = (selectedValue, selectedId) => {
+  score += parseInt(selectedValue);
+  totalScoreElement.textContent = score;
+  const newListItem = document.createElement('li');
+  newListItem.textContent = `${selectedId} : ${selectedValue}`;
+  scoreHistory.appendChild(newListItem);
+};
+
 const getHighestDuplicates = (arr) => {
   const counts = {};
   for (let num of arr) {
@@ -42,6 +50,7 @@ const getHighestDuplicates = (arr) => {
   updateRadioOption(5, 0);
   return counts;
 };
+
 const resetRadioOptions = ()=>{
   scoreInputs.forEach(input => {
     input.disabled = true;           
