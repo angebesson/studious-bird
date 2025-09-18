@@ -91,3 +91,21 @@ rulesBtn.addEventListener("click", () => {
     rulesBtn.textContent = "Show rules";
   }
 });
+keepScoreBtn.addEventListener("click", () => {
+  const checkedOption = document.querySelector('input[type="radio"]:checked');
+
+  if (!checkedOption) {
+    alert("Please select an option before keeping the score.");
+    return;
+  }
+
+  const selectedValue = checkedOption.value;
+  const selectedId = checkedOption.id;
+
+ updateScore(selectedValue, selectedId);
+
+ if (typeof updateStats === "function") {
+    updateStats();
+  }
+  resetRadioOptions();
+});
