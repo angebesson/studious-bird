@@ -15,8 +15,21 @@ let rolls = 0;
 let score = 0;
 let round = 1;
 
-rollDiceBtn.addEventListener("click",()=>{
+const updateStats = ()=>{
+  rollsElement.textContent = rolls;
+  roundElement.textContent = round;
+};
 
+
+rollDiceBtn.addEventListener("click",()=>{
+if (rolls >= 3) {
+    alert("You have made three rolls this round. Please select a score.");
+  } else {
+     rolls++;
+  rollDice();
+
+   updateStats();
+  }
     diceValuesArr = Array.from({ length: 5 }, () => 
     Math.floor(Math.random() * 6) + 1
   );
