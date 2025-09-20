@@ -50,6 +50,21 @@ const getHighestDuplicates = (arr) => {
   updateRadioOption(5, 0);
   return counts;
 };
+const detectFullHouse = (diceValuesArr)=> {
+  const counts = {};
+   diceValuesArr.forEach((num) => {
+    counts[num] = (counts[num] || 0) + 1;
+  });
+    const values = Object.values(counts);
+    const hasThree = values.includes(3);
+    const hasTwo = values.includes(2);
+
+  
+  if(hasThree && hasTwo){
+    updateRadioOption(2, 25);
+  }
+   updateRadioOption(5, 0);
+};
 
 const resetRadioOptions = ()=>{
   scoreInputs.forEach(input => {
@@ -69,7 +84,8 @@ rollDiceBtn.addEventListener("click", () => {
     rolls++;
     rollDice();
     updateStats();
-     
+    getHighestDuplicates(diceValuesArr);
+    detectFullHouse(diceValuesArr);
   }
   diceValuesArr = Array.from({ length: 5 }, () =>
     Math.floor(Math.random() * 6) + 1
